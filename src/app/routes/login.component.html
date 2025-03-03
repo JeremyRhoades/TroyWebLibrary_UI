@@ -1,0 +1,21 @@
+<h1 class="text-center">Log In</h1>
+    
+<div class="container form-container">
+
+    <form id="signUpForm" (ngSubmit)="onLogInFormSubmit()" [formGroup]="logInForm">
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" autocomplete="on" class="form-control" id="email" formControlName="email">
+        </div>
+        <div class="col-md-6">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" id="password" formControlName="password">
+        </div>
+      </div>
+      <div class="col-12 mt-5">
+        <button type="submit" class="btn btn-primary btn-success">Log In</button>
+      </div>
+    </form>
+
+</div>

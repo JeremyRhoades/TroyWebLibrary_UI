@@ -1,0 +1,55 @@
+<h1 class="text-center">View Our Books</h1>
+
+@if(books$| async;as books){
+  @if(books.length > 0) {
+  <div class="container mt-5">
+    
+            @for (book of books; track $index) {
+              @if ($index < 10) {
+
+              <div class="book-container container">
+                <div class="container row mt-5 mb-3 pb-3 border-bottom">
+                  <div class="book-cover col mb-3">
+                  <div class="book-cover ratio" style="--bs-aspect-ratio: 150%">
+                    <img ngSrc="{{book.coverImageUrl}}" alt="Book cover for {{book.title}} by {{book.author}}" fill>
+                  </div>
+                  </div>
+
+                  <div class="book-info col">
+                    <div style="display: none;">{{book.id}}</div>
+                    <h2>{{book.title}}</h2>
+                    <h3>{{book.author}}</h3>
+                    <h4>{{book.publicationDate}} | {{book.publisher}}</h4>
+                    <h5>Category: {{book.category}}</h5>
+                    @if (book.checkedOut) { 
+                      <div class="book-meta"><p><strong>Status:</strong> Checked Out</p></div>
+                    }
+                    @else { 
+                      <div class="book-meta"><p><strong>Status:</strong> Available</p></div>
+                    }
+
+                    <p>{{book.description}}</p>
+                    
+                    <div class="book-meta"><small>ISBN: {{book.isbn}} | {{book.pageCount}} pages</small></div>
+                    
+                    @if (!book.checkedOut) { 
+                      <form id="signUpForm{{$index}}" class="my-2" (ngSubmit)="onCheckOutBookSubmit(book.id)" [formGroup]="checkOutBookForm">
+                          <button type="submit" class="btn btn-primary btn-success">Check Out</button>
+                      </form>
+                    }
+                    @else { 
+                      <form id="signUpForm{{$index}}" class="my-2">
+                        <button type="submit" class="btn btn-primary btn-outline-danger" disabled>Unavailable</button>
+                      </form>
+                      
+                    }
+                  </div>
+                </div>        
+              </div>
+              }
+            }
+  </div>
+} @else {
+  <p class="text-center">No books found.</p>
+}
+}
